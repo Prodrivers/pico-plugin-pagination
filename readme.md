@@ -2,8 +2,11 @@
 
 Provides basic pagination for [Pico](http://pico.dev7studios.com).
 
+Fork that supports reverse order presentation and sorting pages by date.
+
 ## Changelog
 
+**1.5** - Added support for reverse order presentation and sorting pages by date.
 **1.4** - Changed to use of `&gt;/&lt;` in default next_text and prev_text variables and added more variables Google search-like numbered pagination.  
 **1.3** - Added ablity for pagination to happen in subfolders on a site.  
 **1.2** - Added back the ability to set the path segment to indicate pages ("page indicator" ) now that changes have been made in Pico v0.8 that allow it to work properly.  
@@ -57,6 +60,14 @@ Sets whether `{{ pagination_links }}` will output two `<a>` tags or an unordered
 
 *pagination_sub_page*  
 Sets whether there is a sub page for the pagination (i.e. not the root of the site). When this is set to true, you must create a subfolder in content with the same name as the "pagination_page_indicator" variable. See below for further information.  
+**Default value: false** | Options: true, false
+
+*pagination_sort_by_date*  
+Sets whether the pages should be sorted by date.  
+**Default value: false** | Options: true, false
+
+*pagination_reverse_order*  
+Sets whether the pages should be presented in reverse order.  
 **Default value: false** | Options: true, false
 
 For reference, these values are set in config.php using the following format:
