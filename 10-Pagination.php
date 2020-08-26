@@ -5,7 +5,7 @@
  * @author Andrew Meyer
  * @link http://rewdy.com
  * @license http://opensource.org/licenses/MIT
- * @version 1.4
+ * @version 1.5
  */
 class Pagination extends AbstractPicoPlugin {
 	
@@ -27,7 +27,9 @@ class Pagination extends AbstractPicoPlugin {
 			'output_format'	=> 'links',
 			'flip_links' => false,
 			'filter_date' => true,
+			'sort_by_date' => false,
 			'sub_page' => false,
+			'reverse_order' => false,
 		);
 	}
 
@@ -50,6 +52,10 @@ class Pagination extends AbstractPicoPlugin {
 			$this->config['output_format'] = $settings['pagination_output_format'];
 		if (isset($settings['pagination_sub_page']))
 			$this->config['sub_page'] = $settings['pagination_sub_page'];
+		if (isset($settings['pagination_sort_by_date']))
+			$this->config['sort_by_date'] = $settings['pagination_sort_by_date'];
+		if (isset($settings['pagination_reverse_order']))
+			$this->config['reverse_order'] = $settings['pagination_reverse_order'];
 	}
 
 	public function onPagesLoaded(&$pages, &$currentPage, &$previousPage, &$nextPage)
@@ -66,6 +72,12 @@ class Pagination extends AbstractPicoPlugin {
 			}
 		} else {
 			$show_pages = $pages;
+		}
+		if ($this->config['sort_by_date']) {
+			usort($show_pages, function (array $a, array $b) { return ($a['date'] <=> $b['date']); });
+		}
+		if ($this->config['reverse_order']) {
+			$show_pages = array_reverse($show_pages);
 		}
 		// get total pages before show_pages is sliced
 		$this->total_pages = ceil(count($show_pages) / $this->config['limit']);
